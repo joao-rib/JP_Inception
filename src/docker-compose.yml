@@ -1,39 +1,46 @@
+# WIP .dockerignore?
+# WIP tools/ ?
+
 services:
   nginx:
     build: ./requirements/nginx
-    image: nginx
-    pull_policy: never #WIP esclarecer
+    image: nginx # WIP "latest" tag proibida. Definir versao especifica
+    pull_policy: never
     container_name: nginx
-    restart: #WIP always ou unless-stopped?
+    restart: unless-stopped
     ports:
-      - 443:443 # WIP string ou nao? Tem que ser escrito deste modo?
+      - 443:443
     volumes:
-      - wp-data:/var/www/html #WIP Esclarecer, que path e este?
+      - wp-data:/var/www/html #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
     networks:
       - inception
-    env_file: # WIP Erik only
+    env_file:
       - .env
+    depends_on:
+      - wordpress
 #    configs:
 #      - source: nginx-nginx.conf
 #        target: /etc/nginx/nginx.conf
-#    depends_on:
-#      - wordpress
+
 
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
-    pull_policy: never #WIP esclarecer
+    image: wordpress # WIP "latest" tag proibida. Definir versao especifica
+    pull_policy: never
     container_name: wordpress
-    restart: #WIP always ou unless-stopped?
-    secrets: # WIP Guardam-se na .env?
+    restart: unless-stopped
+    secrets:
       - admin_password
       - user_password
       - db_password
     volumes:
-      - wp-data:/var/www/html #WIP Esclarecer, que path e este?
+      - wp-data:/var/www/html #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
+    networks:
       - inception
-    env_file: # WIP Erik only
+    env_file:
       - .env
+    depends_on:
+      - mariadb
 #    configs:
 #      - source: wordpress-php-fpm-conf.conf
 #        target: /etc/php/7.4/fpm/php-fpm.conf
@@ -51,23 +58,21 @@ services:
 #      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
 #      - WP_USER=${WP_USER}
 #      - WP_USER_EMAIL=${WP_USER_EMAIL}
-#    depends_on:
-#      - mariadb
 
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
-    pull_policy: never #WIP esclarecer
+    image: mariadb # WIP "latest" tag proibida. Definir versao especifica
+    pull_policy: never
     container_name: mariadb
-    restart: #WIP always ou unless-stopped?
-    secrets: # WIP Guardam-se na .env? # WIP Incluir admin_password?
+    restart: unless-stopped
+    secrets: # WIP Incluir admin_password?
       - db_password
       - dbroot_password
     volumes:
-      - db-data:/var/lib/mysql #WIP Esclarecer, que path e este?
+      - db-data:/var/lib/mysql #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
     networks:
       - inception
-    env_file: # WIP Erik only
+    env_file:
       - .env
 #    configs:
 #      - source: mariadb-my.cnf
@@ -83,18 +88,18 @@ services:
 volumes:
   wp-data:
     name: wp-data
-    driver: local #WIP esclarecer
+    driver: local
     driver_opts:
-      type: none #WIP esclarecer
+      type: none
+      o: bind
       device: ${DATA_PATH}/wordpress
-      o: bind #WIP esclarecer
   db-data:
     name: db-data
-    driver: local #WIP esclarecer
+    driver: local
     driver_opts:
-      type: none #WIP esclarecer
+      type: none
+      o: bind
       device: ${DATA_PATH}/mariadb
-      o: bind #WIP esclarecer
 
 secrets: # WIP estes ficheiros+pasta sao criados enquanto a maquina corre?
   admin_password:
@@ -109,7 +114,7 @@ secrets: # WIP estes ficheiros+pasta sao criados enquanto a maquina corre?
 networks:
   inception:
     name: inception
-    driver: bridge #WIP esclarecer
+    driver: bridge
 
 #configs:
 #  nginx-nginx.conf:
