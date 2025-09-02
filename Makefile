@@ -1,20 +1,20 @@
-NAME = inception
-CPP = c++
-FLAGS = -Wall -Werror -Wextra -std=c++98
-MAIN = main.cpp
-SRC = inception.cpp
-RM = rm -fr
+all: up
 
-all: $(NAME)
+up:
+	@mkdir -p /home/joao-rib/data/{wordpress,mariadb}
+	@cd srcs && docker-compose up -d --build
 
-$(NAME): $(SRC) $(MAIN) 
-	@$(CPP) $(FLAGS) $(SRC) $(MAIN) -o $(NAME)
+down:
+	@cd srcs && docker-compose down
 
 clean:
-	@$(RM) $(NAME)
+	@cd srcs && docker-compose down -v
 
 fclean: clean
+	@cd srcs && docker-compose rm -f
+	@docker system prune -a
+	@sudo rm -rf /home/joao-rib/data
 
-re: fclean all
+re: clean up
 
-.PHONY: all clean fclean re
+.PHONY: up down build clean fclean re
