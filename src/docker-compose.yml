@@ -1,0 +1,126 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    pull_policy: never #WIP esclarecer
+    container_name: nginx
+    restart: #WIP always ou unless-stopped?
+    ports:
+      - 443:443 # WIP string ou nao? E tem que ser este port especificamente?
+    volumes:
+      - wp-data:/var/www/html #WIP Esclarecer, que path e este?
+    networks:
+      - inception
+    env_file: # WIP Erik only
+      - .env
+#    configs:
+#      - source: nginx-nginx.conf
+#        target: /etc/nginx/nginx.conf
+#    depends_on:
+#      - wordpress
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    pull_policy: never #WIP esclarecer
+    container_name: wordpress
+    restart: #WIP always ou unless-stopped?
+    secrets: # WIP Guardam-se na .env?
+      - admin_password
+      - user_password
+      - db_password
+    volumes:
+      - wp-data:/var/www/html #WIP Esclarecer, que path e este?
+      - inception
+    env_file: # WIP Erik only
+      - .env
+#    configs:
+#      - source: wordpress-php-fpm-conf.conf
+#        target: /etc/php/7.4/fpm/php-fpm.conf
+#      - source: wordpress-wp-config.php
+#        target: /var/www/html/wp-config.php
+#      - source: wordpress-www.conf
+#        target: /etc/php/7.4/fpm/pool.d/www.conf
+#    environment:
+#      - WORDPRESS_DB_HOST=${DB_HOST}
+#      - WORDPRESS_DB_USER=${DB_USER}
+#      - WORDPRESS_DB_NAME=${DB_NAME}
+#      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
+#      - DOMAIN_NAME=${DOMAIN_NAME}
+#      - WP_ADMIN=${WP_ADMIN}
+#      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+#      - WP_USER=${WP_USER}
+#      - WP_USER_EMAIL=${WP_USER_EMAIL}
+#    depends_on:
+#      - mariadb
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    pull_policy: never #WIP esclarecer
+    container_name: mariadb
+    restart: #WIP always ou unless-stopped?
+    secrets: # WIP Guardam-se na .env? # WIP Incluir admin_password?
+      - db_password
+      - dbroot_password
+    volumes:
+      - db-data:/var/lib/mysql #WIP Esclarecer, que path e este?
+    networks:
+      - inception
+    env_file: # WIP Erik only
+      - .env
+#    configs:
+#      - source: mariadb-my.cnf
+#        target: /etc/mysql/my.cnf
+#      - source: mariadb-init.sql
+#        target: /etc/mysql/init.sql
+#    environment:
+#      - MYSQL_DATABASE=${DB_NAME}
+#      - MYSQL_USER=${DB_USER}
+#      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+#      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+
+volumes:
+  wp-data:
+    name: wp-data
+    driver: local #WIP esclarecer
+    driver_opts:
+      type: none #WIP esclarecer
+      device: ${DATA_PATH}/wordpress
+      o: bind #WIP esclarecer
+  db-data:
+    name: db-data
+    driver: local #WIP esclarecer
+    driver_opts:
+      type: none #WIP esclarecer
+      device: ${DATA_PATH}/mariadb
+      o: bind #WIP esclarecer
+
+secrets: # WIP estes ficheiros+pasta sao criados enquanto a maquina corre?
+  admin_password:
+    file: ${SECRETS_DIR}/admin.txt # WIP rever nomes
+  user_password:
+    file: ${SECRETS_DIR}/credentials.txt # WIP rever nomes
+  db_password:
+    file: ${SECRETS_DIR}/db_password.txt # WIP rever nomes
+  dbroot_password:
+    file: ${SECRETS_DIR}/dbroot_password.txt # WIP rever nomes
+
+networks:
+  inception:
+    name: inception
+    driver: bridge #WIP esclarecer
+
+#configs:
+#  nginx-nginx.conf:
+#    file: ./requirements/nginx/conf/nginx.conf
+#  wordpress-php-fpm-conf.conf:
+#    file: ./requirements/wordpress/conf/php-fpm.conf
+#  wordpress-wp-config.php:
+#    file: ./requirements/wordpress/conf/wp-config.php
+#  wordpress-www.conf:
+#    file: ./requirements/wordpress/conf/www.conf
+#  mariadb-my.cnf:
+#    file: ./requirements/mariadb/conf/my.cnf
+#  mariadb-init.sql:
+#    file: ./requirements/mariadb/conf/init.sql
