@@ -5,9 +5,9 @@ set -e
 
 # Read passwords from Docker secrets
 # WIP Confirmar nomes
-WP_ADMIN_PASS="$(cat /run/secrets/wpadmin)"
-WP_DB_PASS="$(cat /run/secrets/dbpass)"
-WP_USER_PASS="$(cat /run/secrets/wpuser)"
+WP_ADMIN_PASS=$(cat /run/secrets/wpadmin)
+WP_DB_PASS=$(cat /run/secrets/dbpass)
+WP_USER_PASS=$(cat /run/secrets/wpuser)
 
 # Waiting for MariaDB to be ready
 # WIP (Alpine) ready // until mysqladmin ping -h"$WP_DB_HOST" -u"$WP_DB_USER" -p"$WP_DB_PASS" --silent; do
@@ -18,10 +18,10 @@ until mysqladmin ping -h"$WP_DB_HOST" -u"$WP_DB_USER" -p"$WP_DB_PASS" --silent; 
 done
 echo "MariaDB is ready!" # WIP Mensagem debug
 
-# If WordPress not yet installed, do core install & create user
+# If WordPress not yet installed, setup WordPress (core install, user creation, etc.)
 # WIP Confirmar nomes
 if [ ! -f wp-config.php ]; then
-	echo "Downloading & Installing WordPress..."
+	echo "Downloading & Installing WordPress..." # WIP Mensagem debug
 
 	wp core download --allow-root
 
@@ -47,9 +47,9 @@ if [ ! -f wp-config.php ]; then
     #wp option update siteurl "${WP_URL}" --path=/var/www/html --allow-root
     #wp option update home    "${WP_URL}" --path=/var/www/html --allow-root
 
-	echo "WordPress installed!"
+	echo "WordPress installed!" # WIP Mensagem debug
 else
-	echo "WordPress is already installed."
+	echo "WordPress is already installed." # WIP Mensagem debug
 fi
 
 # PHP-FPM version 8.3 (foreground)
