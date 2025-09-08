@@ -1,7 +1,7 @@
 # Base image - FROM [base_image]:[version]
 FROM alpine:3.20
 
-# Install dependencies and/or run custom build steps - RUN [install_command] [package1] [package2] // WIP - Examinar mais
+# Install dependencies - RUN [install_command] [package1] [package2] // WIP - Examinar mais
 RUN apk update && apk add --no-cache php83 php83-fpm php83-cli php83-mysqli php83-xml php83-json php83-curl \
 	php83-gd php83-zip php83-dom php83-mbstring php83-phar ca-certificates wget bash su-exec tar mariadb-client \
 	&& wget -qO /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -17,7 +17,7 @@ WORKDIR /var/www/html
 # WIP Rever nomes
 COPY tools/start.sh /start.sh
 
-# Run custom/extra build steps - RUN [command]
+# Run custom build steps - RUN [command]
 # WIP Rever nomes
 RUN chmod +x /start.sh
 
