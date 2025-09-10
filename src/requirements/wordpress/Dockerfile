@@ -26,3 +26,7 @@ EXPOSE 9000
 
 # Default command (may be overridden by Docker Run) - CMD ["executable", "param1", "param2"]
 CMD ["/start.sh"]
+
+# WIP Boa pratica
+# Alternative entrypoint (sets main process, CMD is arguments)
+ENTRYPOINT ["executable", "param1"]
