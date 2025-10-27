@@ -4,24 +4,24 @@
 set -e
 
 # If MariaDB not yet installed, setup Maria DB (core install, user creation, etc.)
-# WIP (Alpine) installs MariaDB directly // mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-# WIP (Debian) relies on a .sql script // envsubst < /etc/mysql/init.sql > /tmp/init.sql
+# TODO (Alpine) installs MariaDB directly // mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+# TODO (Debian) relies on a .sql script // envsubst < /etc/mysql/init.sql > /tmp/init.sql
 if [ ! -d "/var/lib/mysql/mysql" ]; then
-	echo "Initialising MariaDB" # WIP Mensagem debug
+	echo "Initialising MariaDB" # TODO Mensagem debug
 
-    # WIP (Alpine) Saves directly in env variables
+    # TODO (Alpine) Saves directly in env variables
 	DB_ROOT_PASS=$(cat /run/secrets/dbrootpass)
 	WP_DB_PASS=$(cat /run/secrets/dbpass)
 
-    # WIP (Debian) Exports and interpolates into /etc/mysql/init.sql
+    # TODO (Debian) Exports and interpolates into /etc/mysql/init.sql
     # export MYSQL_ROOT_PASSWORD="$(< /run/secrets/db_root_password)" && \
     # export MYSQL_PASSWORD="$(< /run/secrets/db_password)" && \
     # envsubst < /etc/mysql/init.sql > /tmp/init.sql
 
 	mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-	chown -R mysql:mysql /var/lib/mysql # WIP Examinar mais
+	chown -R mysql:mysql /var/lib/mysql # TODO Examinar mais
 
-    # WIP - ALPINE
+    # TODO - ALPINE
     # Starts MariaDB temporarily with networking disabled.
     # Waits for it to be ready using mysqladmin ping.
     # Runs inline SQL to:
@@ -50,7 +50,7 @@ EOSQL
 	kill "$pid"
 fi
 
-# (Alpine) Execute - WIP Examinar mais
+# (Alpine) Execute - TODO Examinar mais
 exec su-exec mysql mariadbd \
 	--datadir=/var/lib/mysql --bind-address=0.0.0.0
 

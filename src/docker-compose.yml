@@ -1,5 +1,5 @@
-# WIP .dockerignore?
-# WIP tools/ ?
+# TODO .dockerignore?
+# TODO tools/ ?
 
 services:
   nginx:
@@ -11,7 +11,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wp-data:/var/www/html #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
+      - wp-data:/var/www/html # TODO Esclarecer. Format: host_path:container_path or volume_name:container_path.
     networks:
       - inception
     env_file:
@@ -34,7 +34,7 @@ services:
       - user_password
       - db_password
     volumes:
-      - wp-data:/var/www/html #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
+      - wp-data:/var/www/html # TODO Esclarecer. Format: host_path:container_path or volume_name:container_path.
     networks:
       - inception
     env_file:
@@ -65,11 +65,11 @@ services:
     pull_policy: never
     container_name: mariadb
     restart: unless-stopped
-    secrets: # WIP Incluir admin_password?
+    secrets: # TODO Incluir admin_password?
       - db_password
       - dbroot_password
     volumes:
-      - db-data:/var/lib/mysql #WIP Esclarecer. Format: host_path:container_path or volume_name:container_path.
+      - db-data:/var/lib/mysql # TODO Esclarecer. Format: host_path:container_path or volume_name:container_path.
     networks:
       - inception
     env_file:
@@ -101,15 +101,15 @@ volumes:
       o: bind
       device: ${DATA_PATH}/mariadb
 
-secrets: # WIP estes ficheiros+pasta sao criados enquanto a maquina corre?
+secrets: # TODO estes ficheiros+pasta sao criados enquanto a maquina corre?
   admin_password:
-    file: ${SECRETS_DIR}/admin.txt # WIP rever nomes
+    file: ${SECRETS_DIR}/admin.txt # TODO rever nomes
   user_password:
-    file: ${SECRETS_DIR}/credentials.txt # WIP rever nomes
+    file: ${SECRETS_DIR}/credentials.txt # TODO rever nomes
   db_password:
-    file: ${SECRETS_DIR}/db_password.txt # WIP rever nomes
+    file: ${SECRETS_DIR}/db_password.txt # TODO rever nomes
   dbroot_password:
-    file: ${SECRETS_DIR}/dbroot_password.txt # WIP rever nomes
+    file: ${SECRETS_DIR}/dbroot_password.txt # TODO rever nomes
 
 networks:
   inception:
