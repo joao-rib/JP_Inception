@@ -17,6 +17,5 @@ EXPOSE 443
 # Default command (may be overridden by Docker Run) - CMD ["executable", "param1", "param2"]
 CMD ["nginx", "-g", "daemon off;"]
 
-# TODO Boa pratica
 # Alternative entrypoint (sets main process, CMD is arguments)
 ENTRYPOINT ["executable", "param1"]
