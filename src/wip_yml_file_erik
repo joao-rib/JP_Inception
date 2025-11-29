@@ -1,0 +1,82 @@
+#Erik
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    pull_policy: never
+    container_name: nginx
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - .env
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    pull_policy: never
+    container_name: wordpress
+    restart: always
+    secrets:
+      - wpadmin
+      - dbpass
+      - wpuser
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - .env
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    pull_policy: never
+    container_name: mariadb
+    restart: always
+    secrets:
+      - wpadmin
+      - dbpass
+      - dbrootpass
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - inception
+    env_file:
+      - .env
+
+volumes:
+  wp-data:
+    name: wp-data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ecarvalh/data/wordpress
+      o: bind
+  db-data:
+    name: db-data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ecarvalh/data/mariadb
+      o: bind
+
+secrets:
+  wpuser:
+    file: ../secrets/credentials.txt
+  wpadmin:
+    file: ../secrets/admin.txt
+  dbpass:
+    file: ../secrets/db_password.txt
+  dbrootpass:
+    file: ../secrets/db_root_password.txt
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
