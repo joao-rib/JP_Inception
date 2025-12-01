@@ -8,7 +8,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wp-data:/var/www/html #TODO confirmar nomes
+      - wp-data:/var/www/html
     networks:
       - inception
     env_file:
@@ -26,12 +26,12 @@ services:
     pull_policy: never
     container_name: wordpress
     restart: unless-stopped
-    secrets: #TODO confirmar nomes
+    secrets:
       - admin_password
       - user_password
       - db_password
     volumes:
-      - wp-data:/var/www/html #TODO confirmar nomes
+      - wp-data:/var/www/html
     networks:
       - inception
     env_file:
@@ -66,7 +66,7 @@ services:
       - db_password
       - dbroot_password
     volumes:
-      - db-data:/var/lib/mysql #TODO confirmar nomes
+      - db-data:/var/lib/mysql
     networks:
       - inception
     env_file:
