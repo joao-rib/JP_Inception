@@ -86,3 +86,63 @@ if ! wp core is-installed --path=/var/www/html --allow-root; then
 fi
 
 exec "php-fpm7.4" "-F"
+
+##----------------------
+## old
+
+#Language: !/bin/bash
+
+# If any command returns non-zero (error), then exit
+set -e
+
+# Read passwords from Docker secrets
+# TODO Confirmar nomes
+WP_ADMIN_PASS=$(cat /run/secrets/wpadmin)
+WP_DB_PASS=$(cat /run/secrets/dbpass)
+WP_USER_PASS=$(cat /run/secrets/wpuser)
+
+# Waiting for MariaDB to be ready
+# TODO (Alpine) ready // until mysqladmin ping -h"$WP_DB_HOST" -u"$WP_DB_USER" -p"$WP_DB_PASS" --silent; do
+# TODO (Debian) ready and accessible // until wp db check --path=/var/www/html --allow-root; do
+echo "Waiting for MariaDB to be ready..." # TODO Mensagem debug
+until mysqladmin ping -h"$WP_DB_HOST" -u"$WP_DB_USER" -p"$WP_DB_PASS" --silent; do
+	sleep 2
+done
+echo "MariaDB is ready!" # TODO Mensagem debug
+
+# If WordPress not yet installed, setup WordPress (core install, user creation, etc.)
+# TODO Confirmar nomes
+if [ ! -f wp-config.php ]; then
+	echo "Downloading & Installing WordPress..." # TODO Mensagem debug
+
+	wp core download --allow-root
+
+	wp config create --allow-root \
+		--dbname="$WP_DB_NAME" \
+		--dbuser="$WP_DB_USER" \
+		--dbpass="$WP_DB_PASS" \
+		--dbhost="$WP_DB_HOST" \
+		--skip-check
+
+	wp core install --allow-root \
+		--url="https://$DOMAIN_NAME" \
+		--title="$WP_TITLE" \
+		--admin_user="$WP_ADMIN_USER" \
+		--admin_password="$WP_ADMIN_PASS" \
+		--admin_email="$WP_ADMIN_EMAIL"
+
+	wp user create --allow-root \
+		"$WP_USER" "$WP_EMAIL" \
+		--user_pass="$WP_USER_PASS"
+
+    # TODO Considerar seguintes comandos // Ensures WordPress’ internal URLs match the container’s environment
+    #wp option update siteurl "${WP_URL}" --path=/var/www/html --allow-root
+    #wp option update home    "${WP_URL}" --path=/var/www/html --allow-root
+
+	echo "WordPress installed!" # TODO Mensagem debug
+else
+	echo "WordPress is already installed." # TODO Mensagem debug
+fi
+
+# PHP-FPM version 8.3 (foreground)
+exec php-fpm83 -F

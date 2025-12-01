@@ -40,11 +40,11 @@ services:
       - mariadb
     configs:
       - source: wordpress-php-fpm-conf.conf
-        target: /etc/php/7.4/fpm/php-fpm.conf
+        target: /etc/php/8.2/fpm/php-fpm.conf
       - source: wordpress-wp-config.php
         target: /var/www/html/wp-config.php
       - source: wordpress-www.conf
-        target: /etc/php/7.4/fpm/pool.d/www.conf
+        target: /etc/php/8.2/fpm/pool.d/www.conf
     environment:
       - WORDPRESS_DB_HOST=${DB_HOST} 
       - WORDPRESS_DB_USER=${DB_USER}
@@ -126,3 +126,6 @@ networks:
   inception:
     name: inception
     driver: bridge
+
+# TODO Confirmar que os RUN dos dockerfile ainda são compatíveis com debian 12
+# TODO Ver PHP e FPM

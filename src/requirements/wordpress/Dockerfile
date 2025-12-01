@@ -1,32 +1,27 @@
 # Base image - FROM [base_image]:[version]
-FROM alpine:3.20
+FROM debian:12
 
-# Install dependencies - RUN [install_command] [package1] [package2] // TODO - Examinar mais
-RUN apk update && apk add --no-cache php83 php83-fpm php83-cli php83-mysqli php83-xml php83-json php83-curl \
-	php83-gd php83-zip php83-dom php83-mbstring php83-phar ca-certificates wget bash su-exec tar mariadb-client \
-	&& wget -qO /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x /usr/local/bin/wp \
-	&& mkdir -p /var/www/html /var/log/php83 \
-	&& echo "memory_limit = 512M" >> /etc/php83/php.ini \
-	&& sed -i 's|^listen = .*|listen = 0.0.0.0:9000|' /etc/php83/php-fpm.d/www.conf
-
-# Set working directory of the container - WORKDIR /[path]
-WORKDIR /var/www/html
+# Install dependencies and/or run custom build steps - RUN [install_command] [package1] [package2]
+# Install PHP and required dependencies
+RUN apt-get update && apt-get install -y php-fpm php-mysql curl unzip default-mysql-client \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/* && mkdir -p /run/php
+# Install WordPress
+RUN curl -O https://wordpress.org/latest.tar.gz && tar -xzf latest.tar.gz && \
+	mkdir -p /var/www/html && mv wordpress/* /var/www/html && \
+	rm -rf latest.tar.gz wordpress /var/www/html/wp-config.php
+# Set up PHP-FPM permissions
+RUN chown -R www-data:www-data /var/www/html && \
+	addgroup --gid 984 configgroup && \
+	usermod -aG configgroup www-data
+# Install wp-cli to manage WordPress from the command line
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+	chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 # Copy files from host into container - COPY [source_path] [destination_path]
-# TODO Rever nomes
-COPY tools/start.sh /start.sh
+COPY tools/start.sh /usr/local/bin/start.sh
 
-# Run custom build steps - RUN [command]
-# TODO Rever nomes
-RUN chmod +x /start.sh
+# Ensures the script is executable
+RUN chmod +x /usr/local/bin/start.sh
 
-# Expose a port - EXPOSE [port_number]
-EXPOSE 9000
-
-# Default command (may be overridden by Docker Run) - CMD ["executable", "param1", "param2"]
-CMD ["/start.sh"]
-
-# TODO Boa pratica
-# Alternative entrypoint (sets main process, CMD is arguments)
-ENTRYPOINT ["executable", "param1"]
+# Alternative entrypoint (sets main process, CMD is arguments) - ENTRYPOINT ["executable", "param1"]
+ENTRYPOINT ["start.sh"]
