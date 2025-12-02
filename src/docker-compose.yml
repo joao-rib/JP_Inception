@@ -112,7 +112,7 @@ configs:
   mariadb-init.sql:
     file: ./requirements/mariadb/conf/init.sql
 
-secrets: # TODO estes ficheiros+pasta sao criados enquanto a maquina corre?
+secrets:
   admin_password:
     file: ${SECRETS_DIR}/admin.txt
   user_password:
