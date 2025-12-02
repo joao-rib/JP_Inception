@@ -21,10 +21,10 @@ ENV_LIST := \
 # Validate all env variables
 $(foreach var,$(ENV_LIST), $(if $(value $(var)),,$(error Environment variable is either missing or empty: $(var))))
 
-# TODO What is happening in this line?
-DATA_PATH := $(shell eval echo $(DATA_PATH))
+# Expand shell variables inside DATA_PATH
+#DATA_PATH := $(shell eval echo $(DATA_PATH))
 
-# TODO What is happening in this line?
+# Extracts every image in the yml file, saves it in IMAGES
 IMAGES := $(shell yq '.services[].image' $(COMPOSE_PATH) 2>/dev/null)
 
 all: up
