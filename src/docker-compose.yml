@@ -114,13 +114,13 @@ configs:
 
 secrets:
   admin_password:
-    file: ${SECRETS_DIR}/admin.txt
+    file: ../secrets/admin.txt
   user_password:
-    file: ${SECRETS_DIR}/credentials.txt
+    file: ../secrets/credentials.txt
   db_password:
-    file: ${SECRETS_DIR}/db_password.txt
+    file: ../secrets/db_password.txt
   dbroot_password:
-    file: ${SECRETS_DIR}/dbroot_password.txt
+    file: ../secrets/dbroot_password.txt
 
 networks:
   inception:

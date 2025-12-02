@@ -113,7 +113,7 @@ unset-host:
 # Validate that all tools are installed
 precheck_tools:
 	@missing=0; \
-	for tool in $(REQUIRED_TOOLS); do \
+	for tool in docker yq; do \
 		if ! command -v $$tool >/dev/null 2>&1; then \
 			echo "Error: Could not find required tool ($$tool)"; \
 			missing=1; \
@@ -123,14 +123,14 @@ precheck_tools:
 
 # Validate that secrets directory exists, and that each file exists and is non‐empty
 precheck_secrets:
-	@if [ ! -d "$(SECRET_DIR)" ]; then \
-		echo "Error: Could not find secrets directory ($(SECRET_DIR))"; \
+	@if [ ! -d "$(SECRETS_DIR)" ]; then \
+		echo "Error: Could not find secrets directory ($(SECRETS_DIR))"; \
 		exit 1; \
 	fi; \
 	missing=0; \
-	for f in $(SECRET_FILES); do \
-		if [ ! -s "$(SECRET_DIR)/$$f" ]; then \
-			echo "Error: Secrets file missing or empty in $(SECRET_DIR)/$$f"; \
+	for f in $(SECRETS_FILES); do \
+		if [ ! -s "$(SECRETS_DIR)/$$f" ]; then \
+			echo "Error: Secrets file missing or empty in $(SECRETS_DIR)/$$f"; \
 			missing=1; \
 		fi; \
 	done; \
