@@ -1,5 +1,5 @@
-ifneq ("$(wildcard srcs/.env)", "")
-	include srcs/.env
+ifneq ("$(wildcard src/.env)", "")
+	include src/.env
 	export
 endif
 
