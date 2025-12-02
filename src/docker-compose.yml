@@ -129,3 +129,5 @@ networks:
 
 # TODO Confirmar que os RUN dos dockerfile ainda são compatíveis com debian 12
 # TODO Ver PHP e FPM
+# TODO Ficheiro .env e pasta secrets --> Paths absolutos
+# TODO estudar isto do site wordpress
