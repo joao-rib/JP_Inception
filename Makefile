@@ -113,7 +113,7 @@ unset-host:
 # Validate that all tools are installed
 precheck_tools:
 	@missing=0; \
-	for tool in "docker yq"; do \
+	for tool in docker yq; do \
 		if ! command -v $$tool >/dev/null 2>&1; then \
 			echo "Error: Could not find required tool ($$tool)"; \
 			missing=1; \
