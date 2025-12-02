@@ -45,12 +45,12 @@ debug: up logs
 logs: precheck
 	@docker compose -f $(COMPOSE_PATH) logs -f --tail=100
 
-stop: precheck
+down: precheck
 	@docker compose -f $(COMPOSE_PATH) down --remove-orphans --volumes
 
-restart: stop up
+restart: down up
 
-restart_debug: stop debug
+restart_debug: down debug
 
 restart_fclean: fclean up
 
@@ -62,7 +62,7 @@ data_clean:
 		echo "Successfully removed data directory $(DATA_PATH)"; \
 	fi
 
-clean: stop
+clean: down
 	@for image in $(IMAGES); do \
 		if docker image inspect $$image >/dev/null 2>&1; then \
 			docker image rm $$image; \
@@ -145,15 +145,14 @@ help:
 	@echo "	up_build		: build+up - (Re)Build images before starting containers (detached mode)"
 	@echo "	logs			: Follow logs of current running containers"
 	@echo "	debug			: up+logs - Start containers (detached mode) and follow logs"
-#TODO Should 'stop' be renamed to 'down'?
-	@echo "	stop			: Stop and remove all containers, volumes, and orphans"
-	@echo "	restart			: stop+up - Stop and then start containers once again"
-	@echo "	restart_debug	: stop+debug - Stop and start, then follow logs"
+	@echo "	down			: Stop and remove all containers, volumes, and orphans"
+	@echo "	restart			: down+up - Stop and then start containers once again"
+	@echo "	restart_debug	: down+debug - Stop and start, then follow logs"
 	@echo "	clean			: Remove built images only"
 	@echo "	data_clean		: Remove persistent data (requires sudo)"
 	@echo "	fclean			: clean+data_clean - Remove images and all persistent data (requires sudo)"
 	@echo "	restart_fclean	: fclean+up - Full cleanup and start fresh"
 	@echo "	help			: Shows the index you're reading :3"
 
-.PHONY: all up build debug logs stop restart restart_debug restart_fclean \
+.PHONY: all up build debug logs down restart restart_debug restart_fclean \
 	data_clean clean fclean data set-host precheck help
