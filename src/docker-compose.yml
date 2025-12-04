@@ -12,7 +12,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env
+      - .env # TODO Absolute path?
     depends_on:
       - wordpress
     configs:
@@ -35,7 +35,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env
+      - .env # TODO Absolute path?
     depends_on:
       - mariadb
     configs:
@@ -49,7 +49,7 @@ services:
       - WORDPRESS_DB_HOST=${DB_HOST} 
       - WORDPRESS_DB_USER=${DB_USER}
       - WORDPRESS_DB_NAME=${DB_NAME}
-      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password # TODO Confirm absolute path
       - DOMAIN_NAME=${DOMAIN_NAME}
       - WP_ADMIN=${WP_ADMIN}
       - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
@@ -70,7 +70,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env
+      - .env # TODO Absolute path?
     configs:
       - source: mariadb-my.cnf
         target: /etc/mysql/my.cnf
@@ -79,8 +79,8 @@ services:
     environment:
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password # TODO Confirm absolute path
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password # TODO Confirm absolute path
 
 volumes:
   wp-data:
@@ -114,13 +114,13 @@ configs:
 
 secrets:
   admin_password:
-    file: ../secrets/admin.txt
+    file: ../secrets/admin.txt # TODO Confirm absolute path
   user_password:
-    file: ../secrets/credentials.txt
+    file: ../secrets/credentials.txt # TODO Confirm absolute path
   db_password:
-    file: ../secrets/db_password.txt
+    file: ../secrets/db_password.txt # TODO Confirm absolute path
   dbroot_password:
-    file: ../secrets/dbroot_password.txt
+    file: ../secrets/dbroot_password.txt # TODO Confirm absolute path
 
 networks:
   inception:

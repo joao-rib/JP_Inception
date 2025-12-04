@@ -1,3 +1,4 @@
+# TODO Absolute path?
 ifneq ("$(wildcard src/.env)", "")
 	include src/.env
 	export
