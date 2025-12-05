@@ -129,3 +129,10 @@ networks:
 
 # TODO Ver PHP e FPM
 # TODO estudar isto do site wordpress
+# TODO How Docker and docker-compose work
+# TODO Difference between docker image used with docker-compose and without docker-compose
+# TODO docker-compose ps (-p)?
+# TODO ssh for the VM
+# "docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null"
+# TODO login to the database. "Try to login into the SQL database as root but with no password. If the login is successful, the evaluation process ends now"
+# TODO easier reboot?
