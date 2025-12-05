@@ -78,7 +78,7 @@ clean: down
 
 fclean: unset-host clean data_clean
 	@docker builder prune -f
-	@rm -fr ../secrets
+	@rm -fr ./secrets
 	@rm -fr src/.env
 
 ## HELPER FUNCTIONS
