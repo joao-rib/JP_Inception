@@ -1,3 +1,10 @@
+@cp /etc/.secrets/.env src
+@mkdir ../secrets
+@cp /etc/.secrets/db_password.txt ../secrets/db_password.txt
+@cp /etc/.secrets/dbroot_password.txt ../secrets/dbroot_password.txt
+@cp /etc/.secrets/admin.txt ../secrets/admin.txt
+@cp /etc/.secrets/credentials.txt ../secrets/credentials.txt
+
 ifneq ("$(wildcard src/.env)", "")
 	include src/.env
 	export
@@ -71,6 +78,8 @@ clean: down
 
 fclean: unset-host clean data_clean
 	@docker builder prune -f
+	@rm -fr ../secrets
+	@rm -fr src/.env
 
 ## HELPER FUNCTIONS
 # Create necessary local directories

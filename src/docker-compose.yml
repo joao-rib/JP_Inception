@@ -114,13 +114,13 @@ configs:
 
 secrets:
   admin_password:
-    file: /etc/.secrets/admin.txt
+    file: ../secrets/admin.txt
   user_password:
-    file: /etc/.secrets/credentials.txt
+    file: ../secrets/credentials.txt
   db_password:
-    file: /etc/.secrets/db_password.txt
+    file: ../secrets/db_password.txt
   dbroot_password:
-    file: /etc/.secrets/dbroot_password.txt
+    file: ../secrets/dbroot_password.txt
 
 networks:
   inception:
