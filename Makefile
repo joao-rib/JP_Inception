@@ -1,5 +1,5 @@
 @cp /etc/.secrets/.env src
-@mkdir ./secrets
+@mkdir -p ./secrets
 @cp /etc/.secrets/db_password.txt ./secrets/db_password.txt
 @cp /etc/.secrets/dbroot_password.txt ./secrets/dbroot_password.txt
 @cp /etc/.secrets/admin.txt ./secrets/admin.txt
