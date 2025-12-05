@@ -1,10 +1,3 @@
-@cp /etc/.secrets/.env src
-@mkdir -p ./secrets
-@cp /etc/.secrets/db_password.txt ./secrets/db_password.txt
-@cp /etc/.secrets/dbroot_password.txt ./secrets/dbroot_password.txt
-@cp /etc/.secrets/admin.txt ./secrets/admin.txt
-@cp /etc/.secrets/credentials.txt ./secrets/credentials.txt
-
 ifneq ("$(wildcard src/.env)", "")
 	include src/.env
 	export
@@ -119,6 +112,15 @@ unset-host:
 		echo "Successfully removed $(DOMAIN_NAME) from host Group (/etc/hosts)"; \
 	fi
 
+# Handles necessary files
+precheck_dir:
+	@cp /etc/.secrets/.env src
+	@mkdir -p ./secrets
+	@cp /etc/.secrets/db_password.txt ./secrets/db_password.txt
+	@cp /etc/.secrets/dbroot_password.txt ./secrets/dbroot_password.txt
+	@cp /etc/.secrets/admin.txt ./secrets/admin.txt
+	@cp /etc/.secrets/credentials.txt ./secrets/credentials.txt
+
 # Validate that all tools are installed
 precheck_tools:
 	@missing=0; \
@@ -145,7 +147,7 @@ precheck_secrets:
 	done; \
 	[ $$missing -eq 0 ]
 
-precheck: precheck_tools precheck_secrets
+precheck: precheck_dir precheck_tools precheck_secrets
 
 help:
 	@echo "Makefile Inception Commands:"
