@@ -12,7 +12,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env # TODO Absolute path?
+      - .env
     depends_on:
       - wordpress
     configs:
@@ -35,7 +35,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env # TODO Absolute path?
+      - .env
     depends_on:
       - mariadb
     configs:
@@ -49,7 +49,7 @@ services:
       - WORDPRESS_DB_HOST=${DB_HOST} 
       - WORDPRESS_DB_USER=${DB_USER}
       - WORDPRESS_DB_NAME=${DB_NAME}
-      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password # TODO Confirm absolute path
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
       - DOMAIN_NAME=${DOMAIN_NAME}
       - WP_ADMIN=${WP_ADMIN}
       - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
@@ -62,7 +62,7 @@ services:
     pull_policy: never
     container_name: mariadb
     restart: unless-stopped
-    secrets: # TODO Incluir admin_password?
+    secrets:
       - db_password
       - dbroot_password
     volumes:
@@ -70,7 +70,7 @@ services:
     networks:
       - inception
     env_file:
-      - .env # TODO Absolute path?
+      - .env
     configs:
       - source: mariadb-my.cnf
         target: /etc/mysql/my.cnf
@@ -79,8 +79,8 @@ services:
     environment:
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD_FILE=/run/secrets/db_password # TODO Confirm absolute path
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password # TODO Confirm absolute path
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password
 
 volumes:
   wp-data:
@@ -114,20 +114,18 @@ configs:
 
 secrets:
   admin_password:
-    file: ../secrets/admin.txt # TODO Confirm absolute path
+    file: /etc/.secrets/admin.txt
   user_password:
-    file: ../secrets/credentials.txt # TODO Confirm absolute path
+    file: /etc/.secrets/credentials.txt
   db_password:
-    file: ../secrets/db_password.txt # TODO Confirm absolute path
+    file: /etc/.secrets/db_password.txt
   dbroot_password:
-    file: ../secrets/dbroot_password.txt # TODO Confirm absolute path
+    file: /etc/.secrets/dbroot_password.txt
 
 networks:
   inception:
     name: inception
     driver: bridge
 
-# TODO Confirmar que os RUN dos dockerfile ainda são compatíveis com debian 12
 # TODO Ver PHP e FPM
-# TODO Ficheiro .env e pasta secrets --> Paths absolutos
 # TODO estudar isto do site wordpress

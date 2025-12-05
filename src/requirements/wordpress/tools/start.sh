@@ -4,9 +4,8 @@
 set -e
 
 # Read passwords from Docker secrets
-WP_ADMIN_PASS=$(cat /run/secrets/admin_password) # TODO Confirm absolute path
-#WP_DB_PASS=$(cat /run/secrets/db_password) # TODO confirmar
-WP_USER_PASS=$(cat /run/secrets/user_password) # TODO Confirm absolute path
+WP_ADMIN_PASS=$(cat /run/secrets/admin_password)
+WP_USER_PASS=$(cat /run/secrets/user_password)
 WP_URL="https://${DOMAIN_NAME}"
 
 # Waiting for MariaDB to be ready
