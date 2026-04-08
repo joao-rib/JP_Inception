@@ -22,4 +22,5 @@ else
 	exit 1
 fi
 
-exec mariadbd
+exec su -s /bin/bash mysql -c "mariadbd"
+# TODO old command was exec mariadbd

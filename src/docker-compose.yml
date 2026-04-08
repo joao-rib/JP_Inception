@@ -132,6 +132,8 @@ networks:
 # TODO ssh for the VM
 # TODO login to the database. "Try to login into the SQL database as root but with no password. If the login is successful, the evaluation process ends now"
 # TODO easier reboot?
+# TODO Confirmar se fclean não está excessivo
+# TODO apagar o .env da src
 
 #docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
 #docker logs nginx --tail 50
