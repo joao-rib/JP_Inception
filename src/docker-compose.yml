@@ -127,12 +127,13 @@ networks:
     name: inception
     driver: bridge
 
+# TODO remover os outros TODOs
 # TODO Ver PHP e FPM
-# TODO estudar isto do site wordpress
-# TODO ssh for the VM
+# TODO o site apenas aparece na própria VM. Normal?
 # TODO login to the database. "Try to login into the SQL database as root but with no password. If the login is successful, the evaluation process ends now"
 # TODO easier reboot?
 # TODO Confirmar se fclean não está excessivo
+# TODO Elaborar o README.md
 # TODO apagar o .env da src
 
 #docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
