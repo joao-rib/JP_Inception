@@ -29,12 +29,14 @@ IMAGES := $(shell yq '.services[].image' $(COMPOSE_PATH) 2>/dev/null)
 
 all: up
 
+# Run dockers, build them if they do not exist
 up: precheck data set-host
 	@docker compose -f $(COMPOSE_PATH) up -d
 	@docker ps -a
 	@docker volume ls
 	@docker network ls
 
+# Run dockers and build them, even if they already exist
 up_build: build up
 
 build: precheck
@@ -45,6 +47,7 @@ debug: up logs
 logs: precheck
 	@docker compose -f $(COMPOSE_PATH) logs -f --tail=100
 
+# Stop running dockers
 down: precheck
 	@docker compose -f $(COMPOSE_PATH) down --remove-orphans --volumes
 
@@ -62,6 +65,7 @@ data_clean:
 		echo "Successfully removed data directory $(DATA_PATH)"; \
 	fi
 
+# Stop running dockers and remove images
 clean: down
 	@for image in $(IMAGES); do \
 		if docker image inspect $$image >/dev/null 2>&1; then \
@@ -69,6 +73,7 @@ clean: down
 		fi; \
 	done
 
+# Stop running dockers, remove images and all other related files and folders
 fclean: unset-host clean data_clean
 	@docker builder prune -f
 	@rm -fr ./secrets
@@ -147,7 +152,14 @@ precheck_secrets:
 	done; \
 	[ $$missing -eq 0 ]
 
-precheck: precheck_dir precheck_tools precheck_secrets
+# Validate that current user belongs to docker group
+precheck_docker_access:
+	@docker ps >/dev/null 2>&1 || { \
+		echo "Error: Docker requires permission. Add user to docker group with sudo usermod -aG docker [user]"; \
+		exit 1; \
+	}
+
+precheck: precheck_dir precheck_tools precheck_secrets precheck_docker_access
 
 help:
 	@echo "Makefile Inception Commands:"

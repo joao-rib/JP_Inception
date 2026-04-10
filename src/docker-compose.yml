@@ -11,7 +11,7 @@ services:
       - wp-data:/var/www/html
     networks:
       - inception
-    env_file: # TODO redundante?
+    env_file:
       - .env
     depends_on:
       - wordpress
@@ -34,8 +34,6 @@ services:
       - wp-data:/var/www/html
     networks:
       - inception
-    #env_file: # TODO redundant?
-    #  - .env
     depends_on:
       - mariadb
     configs:
@@ -46,15 +44,15 @@ services:
       - source: wordpress-www.conf
         target: /etc/php/8.2/fpm/pool.d/www.conf
     environment:
-      - WORDPRESS_DB_HOST=${DB_HOST} # TODO redundant?
-      - WORDPRESS_DB_USER=${DB_USER} # TODO redundant?
-      - WORDPRESS_DB_NAME=${DB_NAME} # TODO redundant?
-      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password # TODO redundant?
-      - DOMAIN_NAME=${DOMAIN_NAME} # TODO redundant?
-      - WP_ADMIN=${WP_ADMIN} # TODO redundant?
-      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL} # TODO redundant?
-      - WP_USER=${WP_USER} # TODO redundant?
-      - WP_USER_EMAIL=${WP_USER_EMAIL} # TODO redundant?
+      - WORDPRESS_DB_HOST=${DB_HOST}
+      - WORDPRESS_DB_USER=${DB_USER}
+      - WORDPRESS_DB_NAME=${DB_NAME}
+      - WORDPRESS_DB_PASSWORD_FILE=/run/secrets/db_password
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - WP_ADMIN=${WP_ADMIN}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
 
   mariadb:
     build: ./requirements/mariadb
@@ -69,18 +67,16 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - inception
-    #env_file: # TODO redundant?
-    #  - .env
     configs:
       - source: mariadb-my.cnf
         target: /etc/mysql/my.cnf
       - source: mariadb-init.sql
         target: /etc/mysql/init.sql
     environment:
-      - MYSQL_DATABASE=${DB_NAME}  # TODO redundant?
-      - MYSQL_USER=${DB_USER}  # TODO redundant?
-      - MYSQL_PASSWORD_FILE=/run/secrets/db_password  # TODO redundant?
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password  # TODO redundant?
+      - MYSQL_DATABASE=${DB_NAME} 
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbroot_password
 
 volumes:
   wp-data:
@@ -127,19 +123,14 @@ networks:
     name: inception
     driver: bridge
 
-# TODO remover os outros TODOs
 # TODO Ver PHP e FPM
-# TODO o site apenas aparece na própria VM. Normal?
-# TODO login to the database. "Try to login into the SQL database as root but with no password. If the login is successful, the evaluation process ends now"
-# TODO easier reboot?
-# TODO Confirmar se fclean não está excessivo
+# TODO Assegurar o website (comentários, reboot, etc.)
 # TODO Elaborar o README.md
-# TODO apagar o .env da src
+# TODO apagar o .env da src. Confirmar que o Makefile continua a portar-se bem
 
 #docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
 #docker logs nginx --tail 50
 #docker logs wordpress --tail 50
 #docker logs mariadb --tail 50
-#docker exec -it wordpress wp core is-installed --path=/var/www/html --allow-root || true
 #grep "${DOMAIN_NAME}" /etc/hosts || true
-#curl -vk https://${DOMAIN_NAME} 2>&1 | sed -n '1,120p'
+# docker exec -it mariadb mysql -u root
