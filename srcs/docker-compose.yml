@@ -123,10 +123,10 @@ networks:
     name: inception
     driver: bridge
 
-# TODO Ver PHP e FPM
-# TODO Assegurar o website (comentários, reboot, etc.)
+# PHP e FPM - Hypertext Preprocessor FastCGI Process Manager
 # TODO Elaborar o README.md
-# TODO apagar o .env da src. Confirmar que o Makefile continua a portar-se bem
+# TODO Assegurar o website (comentários, reboot, etc.)
+# TODO Guiar-me pela avaliação ("latest" é algo que perguntam?)
 
 #docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
 #docker logs nginx --tail 50

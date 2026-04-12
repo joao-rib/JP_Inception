@@ -77,7 +77,7 @@ clean: down
 fclean: unset-host clean data_clean
 	@docker builder prune -f
 	@rm -fr ./secrets
-	@rm -fr src/.env
+	@rm -fr srcs/.env
 
 ## HELPER FUNCTIONS
 # Create necessary local directories
@@ -119,7 +119,7 @@ unset-host:
 
 # Handles necessary files
 precheck_dir:
-	@cp /etc/.secrets/.env src
+	@cp /etc/.secrets/.env srcs
 	@mkdir -p ./secrets
 	@cp /etc/.secrets/db_password.txt ./secrets/db_password.txt
 	@cp /etc/.secrets/dbroot_password.txt ./secrets/dbroot_password.txt
