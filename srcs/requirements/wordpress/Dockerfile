@@ -23,5 +23,5 @@ COPY tools/start.sh /usr/local/bin/start.sh
 # Ensures the script is executable
 RUN chmod +x /usr/local/bin/start.sh
 
-# Alternative entrypoint (sets main process, CMD is arguments) - ENTRYPOINT ["executable", "param1"]
+# Alternative entrypoint (sets main process) - ENTRYPOINT ["executable", "param1"]
 ENTRYPOINT ["start.sh"]

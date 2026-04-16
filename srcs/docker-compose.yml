@@ -122,15 +122,3 @@ networks:
   inception:
     name: inception
     driver: bridge
-
-# PHP e FPM - Hypertext Preprocessor FastCGI Process Manager
-# TODO Elaborar o README.md
-# TODO Assegurar o website (comentários, reboot, etc.)
-# TODO Guiar-me pela avaliação ("latest" é algo que perguntam?)
-
-#docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
-#docker logs nginx --tail 50
-#docker logs wordpress --tail 50
-#docker logs mariadb --tail 50
-#grep "${DOMAIN_NAME}" /etc/hosts || true
-# docker exec -it mariadb mysql -u root

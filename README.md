@@ -109,7 +109,7 @@ However, secrets are normally not ever meant to be visible (not even in metadata
 
 ### Documentation
 
-The following guides are great starting points in order to learn the concepts behind Inception.
+The following guides are great starting points in order to learn the concepts behind Inception, starting to write an early draft of the config files, and even set up a VM that should be able to run it as smoothly as possible.
 
 * [Inception - Basic Concepts](https://medium.com/@imyzf/inception-3979046d90a0)
 * [Inception File Setup Guide - Part I](https://medium.com/@ssterdev/inception-guide-42-project-part-i-7e3af15eb671)
@@ -119,7 +119,7 @@ The following guides are great starting points in order to learn the concepts be
 
 AI tools (such as ChatGPT) were used for:
 
-* Understanding concepts (Docker, PHP-FPM, MariaDB navigation)
+* Delving into technical concepts (Docker networks, MariaDB interaction)
 * Debugging container issues (permissions, prerequisites, proofreading)
 
 All generated content was read with a substantial grain of salt, heavily tested and reviewed, and adapted to better fit the context of this project.
