@@ -29,10 +29,14 @@ Persistent data is stored using volumes, which are bound to the host system (VM)
 
 ### Setup - Basic make commands
 
+(First of all, Docker must be installed and the current user must belong to the `docker` group. Someone with sudo privileges should ensure these for the user)
+
 Instead of running "make", like most projects seen so far, a Docker network typically requires "make up" to get started
 
 In case the containers, images, etc. need to be rebuilt from the ground up, the adequate command is "make up_build".
 Generally reserved when making significant changes to the Docker structure, as "build" takes a very long time to finish.
+
+(Note: A stable internet access is required for either of these to work)
 
 ```bash
 make up
@@ -103,7 +107,7 @@ For example, data stored via MariaDB is meant to be persistent, so bind mounts a
 
 Note that env variables are fairly easy to discover, and not necessarily meant to be hidden. They are typically used to facilitate configuration and setup.
 
-However, secrets are normally not ever meant to be visible (not even in metadata), as they refer to sensitive information, such as passwords. This project brings the folder to the forefront for didactical purposes only.
+However, secrets are normally not ever meant to be visible (not even in metadata), as they refer to sensitive information, such as passwords. This project brings the folder to the forefront for didactic purposes only.
 
 ## Resources
 
