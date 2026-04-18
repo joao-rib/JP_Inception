@@ -101,7 +101,7 @@ For example, data stored via MariaDB is meant to be persistent, so bind mounts a
 * `secrets/` - Secrets folder for credentials, only exists during runtime (copied from `/etc/.secrets`)
 * `DATA_PATH/` - Persistent data, common between runs
 
-Note that env variables are fairly easy to discover, and not necessarily meant to be hidden (they can even be seen via `docker inspect`). They are typically used to facilitate configuration and setup.
+Note that env variables are fairly easy to discover, and not necessarily meant to be hidden. They are typically used to facilitate configuration and setup.
 
 However, secrets are normally not ever meant to be visible (not even in metadata), as they refer to sensitive information, such as passwords. This project brings the folder to the forefront for didactical purposes only.
 
