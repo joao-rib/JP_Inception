@@ -145,3 +145,5 @@ In order to remove this persistent data, either of the following make commands w
 make data_clean
 make fclean
 ```
+
+Just remember that this data loss is permanent, so be careful.
