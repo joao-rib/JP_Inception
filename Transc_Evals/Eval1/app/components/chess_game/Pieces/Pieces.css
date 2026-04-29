@@ -1,0 +1,135 @@
+.pieces {
+    right: 0;
+    top: 0;
+    position: absolute;
+    left: calc(.25*var(--tile-size));
+    bottom: calc(.25*var(--tile-size));
+}
+
+.piece {
+    width: 12.5%;
+    height: 12.5%;
+    background-size: 100%;
+    position: absolute;
+}
+
+.piece--dragging {
+    opacity: 0.25;
+}
+
+/* Default mode: black/white pieces */
+.pieces--default .piece.bk {background-image: url('../../../../assets/black_king.png');}
+.pieces--default .piece.bq {background-image: url('../../../../assets/black_queen.png');}
+.pieces--default .piece.br {background-image: url('../../../../assets/black_rook.png');}
+.pieces--default .piece.bb {background-image: url('../../../../assets/black_bishop.png');}
+.pieces--default .piece.bn {background-image: url('../../../../assets/black_knight.png');}
+.pieces--default .piece.bp {background-image: url('../../../../assets/black_pawn.png');}
+
+.pieces--default .piece.wk {background-image: url('../../../../assets/white_king.png');}
+.pieces--default .piece.wq {background-image: url('../../../../assets/white_queen.png');}
+.pieces--default .piece.wr {background-image: url('../../../../assets/white_rook.png');}
+.pieces--default .piece.wb {background-image: url('../../../../assets/white_bishop.png');}
+.pieces--default .piece.wn {background-image: url('../../../../assets/white_knight.png');}
+.pieces--default .piece.wp {background-image: url('../../../../assets/white_pawn.png');}
+
+/* Classic mode: green pieces */
+.pieces--classic .piece.bk {background-image: url('../../../../assets/king_dark_green.png');}
+.pieces--classic .piece.bq {background-image: url('../../../../assets/queen_dark_green.png');}
+.pieces--classic .piece.br {background-image: url('../../../../assets/rook_dark_green.png');}
+.pieces--classic .piece.bb {background-image: url('../../../../assets/bishop_dark_green.png');}
+.pieces--classic .piece.bn {background-image: url('../../../../assets/knight_dark_green.png');}
+.pieces--classic .piece.bp {background-image: url('../../../../assets/pawn_dark_green.png');}
+
+.pieces--classic .piece.wk {background-image: url('../../../../assets/king_light_green.png');}
+.pieces--classic .piece.wq {background-image: url('../../../../assets/queen_light_green.png');}
+.pieces--classic .piece.wr {background-image: url('../../../../assets/rook_light_green.png');}
+.pieces--classic .piece.wb {background-image: url('../../../../assets/bishop_light_green.png');}
+.pieces--classic .piece.wn {background-image: url('../../../../assets/knight_light_green.png');}
+.pieces--classic .piece.wp {background-image: url('../../../../assets/pawn_light_green.png');}
+
+/* Bluish mode: blue pieces */
+.pieces--bluish .piece.bk {background-image: url('../../../../assets/king_dark_blue.png');}
+.pieces--bluish .piece.bq {background-image: url('../../../../assets/queen_dark_blue.png');}
+.pieces--bluish .piece.br {background-image: url('../../../../assets/rook_dark_blue.png');}
+.pieces--bluish .piece.bb {background-image: url('../../../../assets/bishop_dark_blue.png');}
+.pieces--bluish .piece.bn {background-image: url('../../../../assets/knight_dark_blue.png');}
+.pieces--bluish .piece.bp {background-image: url('../../../../assets/pawn_dark_blue.png');}
+
+.pieces--bluish .piece.wk {background-image: url('../../../../assets/king_light_blue.png');}
+.pieces--bluish .piece.wq {background-image: url('../../../../assets/queen_light_blue.png');}
+.pieces--bluish .piece.wr {background-image: url('../../../../assets/rook_light_blue.png');}
+.pieces--bluish .piece.wb {background-image: url('../../../../assets/bishop_light_blue.png');}
+.pieces--bluish .piece.wn {background-image: url('../../../../assets/knight_light_blue.png');}
+.pieces--bluish .piece.wp {background-image: url('../../../../assets/pawn_light_blue.png');}
+
+.piece.pos-07 {transform: translate(0%,0%);}
+.piece.pos-17 {transform: translate(100%,0%);}
+.piece.pos-27 {transform: translate(200%,0%);}
+.piece.pos-37 {transform: translate(300%,0%);}
+.piece.pos-47 {transform: translate(400%,0%);}
+.piece.pos-57 {transform: translate(500%,0%);}
+.piece.pos-67 {transform: translate(600%,0%);}
+.piece.pos-77 {transform: translate(700%,0%);}
+
+.piece.pos-06 {transform: translate(0%,100%);}
+.piece.pos-16 {transform: translate(100%,100%);}
+.piece.pos-26 {transform: translate(200%,100%);}
+.piece.pos-36 {transform: translate(300%,100%);}
+.piece.pos-46 {transform: translate(400%,100%);}
+.piece.pos-56 {transform: translate(500%,100%);}
+.piece.pos-66 {transform: translate(600%,100%);}
+.piece.pos-76 {transform: translate(700%,100%);}
+
+.piece.pos-05 {transform: translate(0%,200%);}
+.piece.pos-15 {transform: translate(100%,200%);}
+.piece.pos-25 {transform: translate(200%,200%);}
+.piece.pos-35 {transform: translate(300%,200%);}
+.piece.pos-45 {transform: translate(400%,200%);}
+.piece.pos-55 {transform: translate(500%,200%);}
+.piece.pos-65 {transform: translate(600%,200%);}
+.piece.pos-75 {transform: translate(700%,200%);}
+
+.piece.pos-04 {transform: translate(0%,300%);}
+.piece.pos-14 {transform: translate(100%,300%);}
+.piece.pos-24 {transform: translate(200%,300%);}
+.piece.pos-34 {transform: translate(300%,300%);}
+.piece.pos-44 {transform: translate(400%,300%);}
+.piece.pos-54 {transform: translate(500%,300%);}
+.piece.pos-64 {transform: translate(600%,300%);}
+.piece.pos-74 {transform: translate(700%,300%);}
+
+.piece.pos-03 {transform: translate(0%,400%);}
+.piece.pos-13 {transform: translate(100%,400%);}
+.piece.pos-23 {transform: translate(200%,400%);}
+.piece.pos-33 {transform: translate(300%,400%);}
+.piece.pos-43 {transform: translate(400%,400%);}
+.piece.pos-53 {transform: translate(500%,400%);}
+.piece.pos-63 {transform: translate(600%,400%);}
+.piece.pos-73 {transform: translate(700%,400%);}
+
+.piece.pos-02 {transform: translate(0%,500%);}
+.piece.pos-12 {transform: translate(100%,500%);}
+.piece.pos-22 {transform: translate(200%,500%);}
+.piece.pos-32 {transform: translate(300%,500%);}
+.piece.pos-42 {transform: translate(400%,500%);}
+.piece.pos-52 {transform: translate(500%,500%);}
+.piece.pos-62 {transform: translate(600%,500%);}
+.piece.pos-72 {transform: translate(700%,500%);}
+
+.piece.pos-01 {transform: translate(0%,600%);}
+.piece.pos-11 {transform: translate(100%,600%);}
+.piece.pos-21 {transform: translate(200%,600%);}
+.piece.pos-31 {transform: translate(300%,600%);}
+.piece.pos-41 {transform: translate(400%,600%);}
+.piece.pos-51 {transform: translate(500%,600%);}
+.piece.pos-61 {transform: translate(600%,600%);}
+.piece.pos-71 {transform: translate(700%,600%);}
+
+.piece.pos-00 {transform: translate(0%,700%);}
+.piece.pos-10 {transform: translate(100%,700%);}
+.piece.pos-20 {transform: translate(200%,700%);}
+.piece.pos-30 {transform: translate(300%,700%);}
+.piece.pos-40 {transform: translate(400%,700%);}
+.piece.pos-50 {transform: translate(500%,700%);}
+.piece.pos-60 {transform: translate(600%,700%);}
+.piece.pos-70 {transform: translate(700%,700%);}
