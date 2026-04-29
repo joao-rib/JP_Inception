@@ -1,0 +1,51 @@
+.wins {
+    height: var(--tile-size);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.wins.White {background-image: url('../../../../../assets/white_king.png');}
+.wins.Black {background-image: url('../../../../../assets/black_king.png');}
+.draws {
+    height: var(--tile-size);
+    background-size: contain;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 35% center,65% center;
+    background-image: url('../../../../../assets/white_king.png'),url('../../../../../assets/black_king.png')
+}
+
+.game-ends-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.game-ends-buttons button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.game-ends-buttons button:first-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.game-ends-buttons button:first-child:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.game-ends-buttons .back-to-lobby {
+    background-color: #2196F3;
+    color: white;
+}
+
+.game-ends-buttons .back-to-lobby:hover {
+    background-color: #0b7dda;
+    transform: scale(1.05);
+}
